@@ -1,0 +1,33 @@
+{
+  "name": "electron-crud",
+  "version": "1.0.0",
+  "description": "Crud IPC for electron applications",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/g5becks/electron-crud.git"
+  },
+  "keywords": [
+    "electron",
+    "typescript",
+    "crud",
+    "javascript",
+    "node"
+  ],
+  "author": "Gary Becks",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/g5becks/electron-crud/issues"
+  },
+  "homepage": "https://github.com/g5becks/electron-crud#readme",
+  "dependencies": {
+
+  },
+  "devDependencies": {
+    "electron": "^7.1.10",
+    "typescript": "^3.7.5"
+  }
+}
