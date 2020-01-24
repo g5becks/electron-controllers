@@ -7,7 +7,9 @@
   "scripts": {
     "test": "test",
     "prepublish": "tsc",
-    "lint": ""
+    "build": "tsc",
+    "lint": "eslint \"src/**/*.ts\"",
+    "lint:fix": "eslint --fix \"src/**/*.ts\""
   },
   "repository": {
     "type": "git",

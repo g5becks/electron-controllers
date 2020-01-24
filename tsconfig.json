@@ -14,12 +14,12 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "outDir": "./dist",
-    "include": ["src"],
-    "exclude": [
-      "node_modules",
-      "dist",
-      "**/__tests__/*"
-    ]
-  }
+    "outDir": "./dist"
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/__tests__/*"
+  ]
 }
