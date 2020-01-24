@@ -24,9 +24,10 @@
   },
   "homepage": "https://github.com/g5becks/electron-crud#readme",
   "dependencies": {
-
+    "shortid": "^2.2.15"
   },
   "devDependencies": {
+    "@types/shortid": "0.0.29",
     "electron": "^7.1.10",
     "typescript": "^3.7.5"
   }
