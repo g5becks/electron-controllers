@@ -1,5 +1,5 @@
 {
-  "name": "electron-crud",
+  "name": "electron-controllers",
   "version": "1.0.0",
   "description": "Crud IPC for electron applications",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/g5becks/electron-crud.git"
+    "url": "git+https://github.com/g5becks/electron-controllers.git"
   },
   "keywords": [
     "electron",
@@ -20,9 +20,9 @@
   "author": "Gary Becks",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/g5becks/electron-crud/issues"
+    "url": "https://github.com/g5becks/electron-controllers/issues"
   },
-  "homepage": "https://github.com/g5becks/electron-crud#readme",
+  "homepage": "https://github.com/g5becks/electron-controllers#readme",
   "dependencies": {
     "shortid": "^2.2.15"
   },

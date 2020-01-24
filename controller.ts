@@ -1,6 +1,6 @@
 import {IpcHandler} from './handler'
 import {CrudChannel} from './crud-channel'
-import {IpcRequest} from './ipc'
+import {IpcRequest, RequestChannel} from './ipc'
 /**
  * A function which handles a single request of type TRequest and returns a TResponse.
  *
@@ -11,9 +11,9 @@ export type Action = <TRequest, TResponse>(request: TRequest | TRequest[]) => Pr
  * This function is used to simplify the creation of IpcHandler classes.
  * @param requestHandler fulfills all requirements for implementing abstract class IpcHandler.
  * */
-const createHandler = <TRequest, TResponse>(requestHandler: Action): IpcHandler<TRequest, TResponse> => {
+export const createHandler = <TRequest, TResponse>(requestHandler: Action, channel?: RequestChannel): IpcHandler<TRequest, TResponse> => {
     return new (class extends IpcHandler<TRequest, TResponse> {
-        channel = ''
+        channel = channel ?? ''
 
         makeResponse(request: IpcRequest<TRequest | TRequest[]>): Promise<TResponse | TResponse[]> {
             return requestHandler(request.payload)
@@ -25,7 +25,9 @@ const createHandler = <TRequest, TResponse>(requestHandler: Action): IpcHandler<
  * A Controller for Crud Ipc operations.
  * @member add represents a create operation.
  * @member list represents a read operation and can use a custom request type in order to support querying.
- * @member
+ * @member findById represents a read operation.
+ * @member remove represents a delete operation.
+ * @member update represents an update operation.
  * */
 export abstract class IpcController {
     abstract crudChannel: CrudChannel
@@ -48,6 +50,6 @@ export abstract class IpcController {
     }
     public getHandlers(): IpcHandler<any, any>[] {
         this.adjustHandlerChannels()
-        return [this.add, this.updateHandler, this.list, this.findById, this.removeHandler]
+        return [this.addHandler, this.updateHandler, this.listHandler, this.findByIdHandler, this.removeHandler]
     }
 }

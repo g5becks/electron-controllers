@@ -17,9 +17,7 @@ export class CrudChannel {
     public readonly list = `${this.index}/list`
     public readonly findById = `${this.index}/findById`
     public readonly update = `${this.index}/update`
-    public readonly updateAll = `${this.index}/update-all`
     public readonly remove = `${this.index}/remove`
-    public readonly removeAll = `${this.index}/remove-all`
 
     public static create(index?: RequestChannel): CrudChannel {
         return new CrudChannel(index)
