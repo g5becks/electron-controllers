@@ -2,9 +2,11 @@
   "name": "electron-controllers",
   "version": "1.0.0",
   "description": "Crud IPC for electron applications",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "test",
+    "prepublish": "tsc",
     "lint": ""
   },
   "repository": {
