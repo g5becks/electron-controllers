@@ -4,7 +4,7 @@ import {IpcRequest, RequestChannel} from './ipc'
 
 /**
  * A class which encapsulates communication between ipcMain and ipcRenderer for a
- * single request.
+ * single channel.
  * */
 export abstract class IpcHandler<TRequest, TResponse> {
     abstract channel: RequestChannel

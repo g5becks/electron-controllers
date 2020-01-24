@@ -8,7 +8,7 @@ import {IpcRequest, RequestChannel} from './ipc'
 export type Action = <TRequest, TResponse>(request: TRequest | TRequest[]) => Promise<TResponse | TResponse[]>
 
 /**
- * This function is used to simplify the creation of IpcHandler classes.
+ * This function aims to simplify the creation of IpcHandler classes.
  * @param requestHandler fulfills all requirements for implementing abstract class IpcHandler.
  * @param channel allows optional setting of the channel this handler will listen on.
  * */
@@ -24,6 +24,7 @@ export const createHandler = <TRequest, TResponse>(requestHandler: Action, chann
 
 /**
  * A Controller for Crud Ipc operations.
+ * @member crudChannel
  * @member add represents a create operation.
  * @member list represents a read operation and can use a custom request type in order to support querying.
  * @member findById represents a read operation.
