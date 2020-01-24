@@ -10,6 +10,7 @@ export type Action = <TRequest, TResponse>(request: TRequest | TRequest[]) => Pr
 /**
  * This function is used to simplify the creation of IpcHandler classes.
  * @param requestHandler fulfills all requirements for implementing abstract class IpcHandler.
+ * @param channel allows optional setting of the channel this handler will listen on.
  * */
 export const createHandler = <TRequest, TResponse>(requestHandler: Action, channel?: RequestChannel): IpcHandler<TRequest, TResponse> => {
     return new (class extends IpcHandler<TRequest, TResponse> {
@@ -48,8 +49,8 @@ export abstract class IpcController {
         this.removeHandler.channel = this.crudChannel.remove
         this.updateHandler.channel = this.crudChannel.update
     }
-    public getHandlers(): IpcHandler<any, any>[] {
+    public getHandlers(): Set<IpcHandler<any, any>> {
         this.adjustHandlerChannels()
-        return [this.addHandler, this.updateHandler, this.listHandler, this.findByIdHandler, this.removeHandler]
+        return new Set([this.addHandler, this.updateHandler, this.listHandler, this.findByIdHandler, this.removeHandler])
     }
 }
