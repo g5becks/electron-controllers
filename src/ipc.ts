@@ -3,8 +3,8 @@
  * interface used to create unique nominal type aliases.
  * @see https://spin.atomicobject.com/2018/01/15/typescript-flexible-nominal-typing/
  * */
-interface Flavoring<FlavorT> {
-    _type?: FlavorT
+export interface Flavoring<FlavorT> {
+  _type?: FlavorT
 }
 type Flavor<T, FlavorT> = T & Flavoring<FlavorT>
 
@@ -29,6 +29,6 @@ export type ResponseChannel = Flavor<string, 'IPC_RESPONSE_CHANNEL'>
  * @prop payload contains the payload - if any, of this request.
  * */
 export interface IpcRequest<T> {
-    responseChannel?: ResponseChannel
-    payload?: T
+  responseChannel?: ResponseChannel
+  payload?: T
 }

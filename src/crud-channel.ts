@@ -1,5 +1,5 @@
-import { RequestChannel } from './ipc'
 import shortid from 'shortid'
+import { RequestChannel } from './ipc'
 
 /**
  * Encapsulates the creation of channels supporting common crud operations.
