@@ -1,4 +1,4 @@
-import {RequestChannel} from './ipc'
+import { RequestChannel } from './ipc'
 import shortid from 'shortid'
 
 /**
@@ -11,20 +11,20 @@ import shortid from 'shortid'
  * @member remove contains the channel used for delete operations.
  * */
 export class CrudChannel {
-    constructor(public basePath?: RequestChannel) {
-        if (!this.basePath) {
-            const id = shortid()
-            const time = new Date().getUTCMilliseconds()
-            this.basePath = `index/${time}/${id}`
-        }
+  constructor(public basePath?: RequestChannel) {
+    if (!this.basePath) {
+      const id = shortid()
+      const time = new Date().getUTCMilliseconds()
+      this.basePath = `index/${time}/${id}`
     }
-    public readonly add = `${this.basePath}/add`
-    public readonly list = `${this.basePath}/list`
-    public readonly findById = `${this.basePath}/findById`
-    public readonly update = `${this.basePath}/update`
-    public readonly remove = `${this.basePath}/remove`
+  }
+  public readonly add = `${this.basePath}/add`
+  public readonly list = `${this.basePath}/list`
+  public readonly findById = `${this.basePath}/findById`
+  public readonly update = `${this.basePath}/update`
+  public readonly remove = `${this.basePath}/remove`
 
-    public static create(basePath?: RequestChannel): CrudChannel {
-        return new CrudChannel(basePath)
-    }
+  public static create(basePath?: RequestChannel): CrudChannel {
+    return new CrudChannel(basePath)
+  }
 }

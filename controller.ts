@@ -2,7 +2,8 @@ import {IpcHandler} from './handler'
 import {CrudChannel} from './crud-channel'
 import {IpcRequest, RequestChannel} from './ipc'
 /**
- * A function which handles a single request of type TRequest and returns a TResponse.
+ * @remarks
+ * A function which handles a single request.
  *
  * */
 export type Action = <TRequest, TResponse>(request: TRequest | TRequest[]) => Promise<TResponse | TResponse[]>
@@ -24,7 +25,7 @@ export const createHandler = <TRequest, TResponse>(requestHandler: Action, chann
 
 /**
  * A Controller for Crud Ipc operations.
- * @member crudChannel
+ * @member crudChannel holds an instance of CrudChannel and is used to automatically apply channels to each method on @this IpcController instance.
  * @member add represents a create operation.
  * @member list represents a read operation and can use a custom request type in order to support querying.
  * @member findById represents a read operation.
