@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/electron-crud.iml" filepath="$PROJECT_DIR$/.idea/electron-crud.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../electron-controllers/.idea/electron-controllers.iml" filepath="$PROJECT_DIR$/../electron-controllers/.idea/electron-controllers.iml" />
     </modules>
   </component>
 </project>
