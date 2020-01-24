@@ -1,6 +1,6 @@
 import {IpcController} from './controller'
 import {IpcHandler} from './handler'
-import ipcMain = Electron.ipcMain
+import { ipcMain } from 'electron'
 
 const getHandlersFromControllers = (controllers: Set<IpcController>): Set<IpcHandler<any, any>> => {
     const handlers = new Set<IpcHandler<any, any>>()

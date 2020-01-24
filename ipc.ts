@@ -1,4 +1,4 @@
-// Flavor interface is used to create unique nominal type aliases.
+// Flavor interface is a type used to create unique nominal type aliases.
 // See https://spin.atomicobject.com/2018/01/15/typescript-flexible-nominal-typing/
 interface Flavoring<FlavorT> {
     _type?: FlavorT
