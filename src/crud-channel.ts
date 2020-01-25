@@ -13,16 +13,14 @@ import { RequestChannel } from './ipc'
 export class CrudChannel {
   private constructor(public basePath?: RequestChannel) {
     if (!this.basePath) {
-      const id = shortid()
-      const time = new Date().getTime().toLocaleString()
-      this.basePath = `index/${time}/${id}`
+      this.basePath = `${shortid()}`
     }
   }
-  public readonly add = `${this.basePath}/add`
-  public readonly list = `${this.basePath}/list`
-  public readonly findById = `${this.basePath}/findById`
-  public readonly update = `${this.basePath}/update`
-  public readonly remove = `${this.basePath}/remove`
+  public add = (): RequestChannel => `${this.basePath}/add`
+  public list = (): RequestChannel => `${this.basePath}/list`
+  public findById = (): RequestChannel => `${this.basePath}/findById`
+  public readonly update = (): RequestChannel => `${this.basePath}/update`
+  public readonly remove = (): RequestChannel => `${this.basePath}/remove`
 
   public static create(basePath?: RequestChannel): CrudChannel {
     return new CrudChannel(basePath)
