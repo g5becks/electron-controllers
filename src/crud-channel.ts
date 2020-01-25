@@ -28,3 +28,5 @@ export class CrudChannel {
     return new CrudChannel(basePath)
   }
 }
+
+export const crudChannel = (basePath?: RequestChannel): CrudChannel => CrudChannel.create(basePath)

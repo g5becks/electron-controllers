@@ -79,6 +79,9 @@ test('add handler should add element', async () => {
   expect(response).toBe(6)
 })
 
-test('findById handler should return correct element', () => {
+test('findById handler should return correct element', async () => {
   const handler = getHandler('findById')
+  const request: IpcRequest<number> = { responseChannel: '', payload: 2 }
+  const response = await handler?.makeResponse(request)
+  expect(response).toBe('corey')
 })
