@@ -11,7 +11,7 @@ import { RequestChannel } from './ipc'
  * @member remove contains the channel used for delete operations.
  * */
 export class CrudChannel {
-  constructor(public basePath?: RequestChannel) {
+  private constructor(public basePath?: RequestChannel) {
     if (!this.basePath) {
       const id = shortid()
       const time = new Date().getUTCMilliseconds()
