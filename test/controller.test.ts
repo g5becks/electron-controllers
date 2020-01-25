@@ -65,24 +65,36 @@ test('handler channels should not be empty', () => {
   handlers?.forEach(handler => expect(handler.channel).not.toBeFalsy())
 })
 
-test('remove handler should delete element', async () => {
+test('remove handler should delete entry', async () => {
   const handler = getHandler('remove')
   const request: IpcRequest<number> = { responseChannel: '', payload: 1 }
   const response = await handler?.makeResponse(request)
   expect(response).toBe(4)
 })
 
-test('add handler should add element', async () => {
+test('add handler should add entry', async () => {
   const handler = getHandler('add')
   const request: IpcRequest<{ name: string }> = { responseChannel: '', payload: { name: 'testing' } }
   const response = await handler?.makeResponse(request)
   expect(response).toBe(6)
 })
 
-test('findById handler should return correct element', async () => {
+test('findById handler should return correct entry', async () => {
   const handler = getHandler('findById')
   const request: IpcRequest<number> = { responseChannel: '', payload: 2 }
   const response = await handler?.makeResponse(request)
   console.log(handler?.channel)
   expect(response).toBe('corey')
+})
+
+test('update handler should return updated entry', async () => {
+  const handler = getHandler('update')
+  const request: IpcRequest<{ id: number; name: string }> = { responseChannel: '', payload: { id: 3, name: 'harvey' } }
+  const response = await handler?.makeResponse(request)
+  expect(response).toBe('harvey')
+})
+
+
+test('list handler should return items with length === filter param', () => {
+  
 })
