@@ -28,7 +28,7 @@ export type ResponseChannel = Flavor<string, 'IPC_RESPONSE_CHANNEL'>
  * @prop responseChannel is used by the event handler in the main process to send a response to this request sender.
  * @prop payload contains the payload - if any, of this request.
  * */
-export interface IpcRequest<T> {
+export interface IpcRequest<T = unknown> {
   responseChannel?: ResponseChannel
-  payload?: T
+  payload: T
 }

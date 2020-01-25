@@ -6,7 +6,7 @@ import { IpcRequest, RequestChannel } from './ipc'
  * A function which handles a single request.
  *
  * */
-export type Action = <TRequest, TResponse>(request: TRequest | TRequest[]) => Promise<TResponse | TResponse[]>
+export type Action<TRequest, TResponse> = (request: TRequest) => Promise<TResponse>
 
 /**
  * This function aims to simplify the creation of IpcHandler classes.
@@ -14,13 +14,13 @@ export type Action = <TRequest, TResponse>(request: TRequest | TRequest[]) => Pr
  * @param channel allows optional setting of the channel this handler will listen on.
  * */
 export const createHandler = <TRequest, TResponse>(
-  requestHandler: Action,
+  requestHandler: Action<TRequest, TResponse>,
   channel?: RequestChannel,
 ): IpcHandler<TRequest, TResponse> => {
   return new (class extends IpcHandler<TRequest, TResponse> {
     channel = channel ?? ''
 
-    makeResponse(request: IpcRequest<TRequest | TRequest[]>): Promise<TResponse | TResponse[]> {
+    makeResponse(request: IpcRequest<TRequest>): Promise<TResponse> {
       return requestHandler(request.payload)
     }
   })()
@@ -37,11 +37,11 @@ export const createHandler = <TRequest, TResponse>(
  * */
 export abstract class IpcController {
   abstract crudChannel: CrudChannel
-  abstract add<TRequest, TResponse>(entities: TRequest | TRequest[]): Promise<TResponse>
-  abstract list<TRequest, TResponse>(filter: TRequest): Promise<TResponse[]>
-  abstract findById<TRequest, TResponse>(id: TRequest): Promise<TResponse>
-  abstract remove<TRequest, TResponse>(entities: TRequest | TRequest[]): Promise<TResponse>
-  abstract update<TRequest, TResponse>(entities: TRequest | TRequest[]): Promise<TResponse>
+  abstract add(entities: any): Promise<any>
+  abstract list(filter: any): Promise<any>
+  abstract findById(id: any): Promise<any>
+  abstract remove(entities: any): Promise<any>
+  abstract update(entities: any): Promise<any>
   private addHandler = createHandler(this.add.bind(this))
   private listHandler = createHandler(this.list.bind(this))
   private findByIdHandler = createHandler(this.findById.bind(this))
