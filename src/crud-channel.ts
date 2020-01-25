@@ -14,7 +14,7 @@ export class CrudChannel {
   private constructor(public basePath?: RequestChannel) {
     if (!this.basePath) {
       const id = shortid()
-      const time = new Date().getUTCMilliseconds()
+      const time = new Date().getTime().toLocaleString()
       this.basePath = `index/${time}/${id}`
     }
   }

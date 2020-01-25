@@ -83,5 +83,6 @@ test('findById handler should return correct element', async () => {
   const handler = getHandler('findById')
   const request: IpcRequest<number> = { responseChannel: '', payload: 2 }
   const response = await handler?.makeResponse(request)
+  console.log(handler?.channel)
   expect(response).toBe('corey')
 })

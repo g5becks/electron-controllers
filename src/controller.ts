@@ -42,20 +42,22 @@ export abstract class IpcController {
   abstract findById(id: any): Promise<any>
   abstract remove(entities: any): Promise<any>
   abstract update(entities: any): Promise<any>
-  private addHandler = createHandler(this.add.bind(this))
-  private listHandler = createHandler(this.list.bind(this))
+  private addHandler(): IpcHandler<any, any> {
+    return createHandler(this.add.bind(this), this.crudChannel.add)
+  }
+  private listHandler(): IpcHandler<any, any> {
+    return createHandler(this.list.bind(this), this.crudChannel.list)
+  }
   private findByIdHandler = createHandler(this.findById.bind(this))
   private removeHandler = createHandler(this.remove.bind(this))
   private updateHandler = createHandler(this.update.bind(this))
-  private adjustHandlerChannels(): void {
-    this.addHandler.channel = this.crudChannel.add
-    this.listHandler.channel = this.crudChannel.list
-    this.findByIdHandler.channel = this.crudChannel.findById
-    this.removeHandler.channel = this.crudChannel.remove
-    this.updateHandler.channel = this.crudChannel.update
-  }
   public getHandlers(): Set<IpcHandler<any, any>> {
-    this.adjustHandlerChannels()
-    return new Set([this.addHandler, this.updateHandler, this.listHandler, this.findByIdHandler, this.removeHandler])
+    return new Set([
+      this.addHandler(),
+      this.updateHandler,
+      this.listHandler(),
+      this.findByIdHandler,
+      this.removeHandler,
+    ])
   }
 }
