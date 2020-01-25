@@ -94,7 +94,9 @@ test('update handler should return updated entry', async () => {
   expect(response).toBe('harvey')
 })
 
-
-test('list handler should return items with length === filter param', () => {
-  
+test('list handler should return items with length === filter param', async () => {
+  const handler = getHandler('list')
+  const request: IpcRequest<{ limit: number }> = { responseChannel: '', payload: { limit: 3 } }
+  const response = await handler?.makeResponse(request)
+  expect(response.length).toBe(3)
 })
