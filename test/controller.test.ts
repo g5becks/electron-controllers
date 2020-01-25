@@ -1,4 +1,4 @@
-import { CrudChannel, IpcController } from '../src'
+import { CrudChannel, IpcController, IpcHandler, IpcRequest } from '../src'
 
 class TestController extends IpcController {
   crudChannel: CrudChannel = CrudChannel.create()
@@ -33,12 +33,52 @@ class TestController extends IpcController {
   }
 }
 
-const controller = new TestController()
-const handlers = controller.getHandlers()
+let controller: TestController | null
+let handlers: Set<IpcHandler<any, any>> | null
+
+const getHandler = (channelFilter: string): IpcHandler<any, any> | null => {
+  let handlersArray: IpcHandler<any, any>[]
+  let handler: IpcHandler<any, any>
+  if (handlers) {
+    handlersArray = Array.from(handlers.values())
+    handler = handlersArray.filter(ipc => ipc.channel.includes(channelFilter))[0]
+    return handler
+  }
+  return null
+}
+
+beforeEach(() => {
+  controller = new TestController()
+  handlers = controller.getHandlers()
+})
+
+afterEach(() => {
+  controller = null
+  handlers = null
+})
+
 test('controller should have 5 handlers', () => {
-  expect(handlers.size).toBe(5)
+  expect(handlers?.size).toBe(5)
 })
 
 test('handler channels should not be empty', () => {
-  handlers.forEach(handler => expect(handler.channel).not.toBeFalsy())
+  handlers?.forEach(handler => expect(handler.channel).not.toBeFalsy())
+})
+
+test('remove handler should delete element', async () => {
+  const handler = getHandler('remove')
+  const request: IpcRequest<number> = { responseChannel: '', payload: 1 }
+  const response = await handler?.makeResponse(request)
+  expect(response).toBe(4)
+})
+
+test('add handler should add element', async () => {
+  const handler = getHandler('add')
+  const request: IpcRequest<{ name: string }> = { responseChannel: '', payload: { name: 'testing' } }
+  const response = await handler?.makeResponse(request)
+  expect(response).toBe(6)
+})
+
+test('findById handler should return correct element', () => {
+  const handler = getHandler('findById')
 })
