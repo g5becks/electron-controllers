@@ -1,12 +1,17 @@
 {
   "name": "electron-controllers",
   "version": "1.0.0",
-  "description": "Crud IPC for electron applications",
+  "description": "Crud IPC Controllers for electron applications",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest",
     "build": "tsc",
+    "prepare" : "npm run build",
+    "prepublishOnly" : "npm test && npm run lint",
+    "preversion" : "npm run lint",
+    "version" : "npm run lint:fix && git add -A src",
+    "postversion" : "git push && git push --tags",
     "clean": "tsc -b --clean",
     "lint": "eslint \"src/**/*.ts\"",
     "lint:fix": "eslint --fix \"src/**/*.ts\""
@@ -45,5 +50,6 @@
     "prettier": "^1.19.1",
     "ts-jest": "^25.0.0",
     "typescript": "^3.7.5"
-  }
+  },
+  "files": ["dist/**/*"]
 }
