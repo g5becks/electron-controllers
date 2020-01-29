@@ -6,8 +6,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest",
-    "prepublish": "tsc",
     "build": "tsc",
+    "clean": "tsc -b --clean",
     "lint": "eslint \"src/**/*.ts\"",
     "lint:fix": "eslint --fix \"src/**/*.ts\""
   },
@@ -43,7 +43,6 @@
     "eslint-plugin-prettier": "^3.1.2",
     "jest": "^25.1.0",
     "prettier": "^1.19.1",
-    "rewire": "^4.0.1",
     "ts-jest": "^25.0.0",
     "typescript": "^3.7.5"
   }

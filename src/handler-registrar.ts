@@ -8,7 +8,7 @@ const getHandlersFromControllers = (controllers: Set<IpcController>): Set<IpcHan
   return handlers
 }
 
-const mergeHandlers = (
+export const mergeHandlers = (
   controllers?: Set<IpcController>,
   handlers?: Set<IpcHandler<any, any>>,
 ): Set<IpcHandler<any, any>> => {
