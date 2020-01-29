@@ -1,6 +1,6 @@
 import { CrudChannel, IpcController, IpcHandler, IpcRequest } from '../src'
 
-class TestController extends IpcController {
+export class TestController extends IpcController {
   crudChannel: CrudChannel = CrudChannel.create()
 
   public db: { [key: number]: string } = { 1: 'gary', 2: 'corey', 3: 'tonya', 4: 'brian', 5: 'adam' }
@@ -72,6 +72,10 @@ test('remove handler should delete entry', async () => {
   expect(response).toBe(4)
 })
 
+test('controller crudChannel basepath should not be undefined', () => {
+  const path = controller?.crudChannel?.basePath
+  expect(path).not.toBe('undefined')
+})
 test('add handler should add entry', async () => {
   const handler = getHandler('add')
   const request: IpcRequest<{ name: string }> = { responseChannel: '', payload: { name: 'testing' } }
@@ -92,11 +96,4 @@ test('update handler should return updated entry', async () => {
   const request: IpcRequest<{ id: number; name: string }> = { responseChannel: '', payload: { id: 3, name: 'harvey' } }
   const response = await handler?.makeResponse(request)
   expect(response).toBe('harvey')
-})
-
-test('list handler should return items with length === filter param', async () => {
-  const handler = getHandler('list')
-  const request: IpcRequest<{ limit: number }> = { responseChannel: '', payload: { limit: 3 } }
-  const response = await handler?.makeResponse(request)
-  expect(response.length).toBe(3)
 })
