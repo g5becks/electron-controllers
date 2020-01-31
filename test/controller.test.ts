@@ -1,7 +1,8 @@
 import { CrudChannel, IpcController, IpcHandler, IpcRequest } from '../src'
+import { crudChannel } from '../src/crud-channel'
 
 export class TestController extends IpcController {
-  crudChannel: CrudChannel = CrudChannel.create()
+  crudChannel: CrudChannel = crudChannel()
 
   public db: { [key: number]: string } = { 1: 'gary', 2: 'corey', 3: 'tonya', 4: 'brian', 5: 'adam' }
   // eslint-disable-next-line @typescript-eslint/require-await
