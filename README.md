@@ -23,34 +23,33 @@ $ yarn add electron-controllers
 
 ## 📖 Usage
 
+electron-controllers was designed with typescript users in mind and exposes a very minimal api ( 7 types and two functions ). The IpcController abstract class is likely to be the most used of these types in most applications.
 ```
-export class TestController extends IpcController {
+import { IpcController, crudChannel } 'electron-controllers'
+
+export class MyController extends IpcController {
   crudChannel: CrudChannel = crudChannel()
 
-  public db: { [key: number]: string } = { 1: 'gary', 2: 'corey', 3: 'tonya', 4: 'brian', 5: 'adam' }
-  // eslint-disable-next-line @typescript-eslint/require-await
+  public db: { [key: number]: string } = { 1: 'typescript', 2: 'javascript', 3: 'golang', 4: 'dart', 5: 'C#' }
+  
   async add(entity: { name: string }): Promise<number> {
     this.db[Object.keys(this.db).length + 1] = entity.name
     return Object.keys(this.db).length
   }
 
-  // eslint-disable-next-line @typescript-eslint/require-await
   async findById(id: number): Promise<string> {
     return this.db[id]
   }
 
-  // eslint-disable-next-line @typescript-eslint/require-await
   async list(filter: { limit: number }): Promise<string[]> {
     return Object.values(this.db).slice(0, filter.limit)
   }
 
-  // eslint-disable-next-line @typescript-eslint/require-await
   async remove(id: number): Promise<number> {
     delete this.db[id]
     return Object.keys(this.db).length
   }
 
-  // eslint-disable-next-line @typescript-eslint/require-await
   async update(entity: { id: number; name: string }): Promise<string> {
     this.db[entity.id] = entity.name
     return this.db[entity.id]
