@@ -1,4 +1,5 @@
 
 # electron-controllers
 
-[![npm version](https://img.shields.io/badge/npm-v1.0.0-blue)](https://www.npmjs.com/package/electron-controllersl) 
+[![npm version](https://img.shields.io/badge/npm-v1.0.0-blue)](https://www.npmjs.com/package/electron-controllersl)
+![build status](https://github.com/g5becks/electron-controllers/workflows/Node.js%20CI/badge.svg)
