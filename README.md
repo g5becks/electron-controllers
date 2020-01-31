@@ -30,7 +30,8 @@ import { IpcController, crudChannel } 'electron-controllers'
 export class MyController extends IpcController {
   crudChannel: CrudChannel = crudChannel()
 
-  public db: { [key: number]: string } = { 1: 'typescript', 2: 'javascript', 3: 'golang', 4: 'dart', 5: 'C#' }
+  public db: { [key: number]: string } = { 1: 'typescript', 2: 
+    'javascript', 3: 'golang', 4: 'dart', 5: 'C#' }
   
   async add(entity: { name: string }): Promise<number> {
     this.db[Object.keys(this.db).length + 1] = entity.name
