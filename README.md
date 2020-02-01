@@ -50,7 +50,7 @@ interface IpcRequest<T = unknown> {
 Where responseChannel is the channel that ipcMain will use to send a response to this request and payload is any data sent along with the request.
 
 ```
-const request: IpcRequest<{ name: string }> = { responseChannel: 'testChannel', payload: { name: 'testing' } }
+const request: IpcRequest<{ name: string }> = { responseChannel:   'testChannel', payload: { name: 'testing' } }
 ```
 
 ## IpcController
