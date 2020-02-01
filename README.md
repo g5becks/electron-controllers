@@ -25,7 +25,7 @@ $ yarn add electron-controllers
 
 electron-controllers was designed with typescript users in mind and exposes a very minimal api ( 7 types and two functions ).
 
-## RequestChannel and ResponseChannel
+## [RequestChannel and ResponseChannel](#request_response)
 
 RequestChannel and ResponseChannel are simple type aliases created using the [flavoring technique](https://spin.atomicobject.com/2018/01/15/typescript-flexible-nominal-typing/) for creating flexible nominal types.
 
@@ -53,6 +53,10 @@ Where responseChannel is the channel that ipcMain will use to send a response to
 const request: IpcRequest<{ name: string }> = { responseChannel:  
  'testChannel', payload: { name: 'testing' } }
 ```
+
+## IpcHandler
+
+IpcHandler is an abstract class that contains logic for handling communication between [ipcRenderer](https://www.electronjs.org/docs/api/ipc-renderer) and [ipcMain](https://www.electronjs.org/docs/api/ipc-main) for a single [RequestChannel](#request_response)
 
 ## IpcController
 The IpcController abstract class can be extended in order to .
