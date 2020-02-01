@@ -49,6 +49,8 @@ interface IpcRequest<T = unknown> {
 
 Where responseChannel is the channel that ipcMain will use to send a response to this request and payload is any data sent along with the request.
 
+**Example Usage**
+
 ```
 const request: IpcRequest<{ name: string }> = { responseChannel:  
  'testChannel', payload: { name: 'testing' } }
@@ -56,7 +58,29 @@ const request: IpcRequest<{ name: string }> = { responseChannel:
 
 ## IpcHandler
 
-IpcHandler is an abstract class that contains logic for handling communication between [ipcRenderer](https://www.electronjs.org/docs/api/ipc-renderer) and [ipcMain](https://www.electronjs.org/docs/api/ipc-main) for a single [RequestChannel](#requestchannel-and-responsechannel)
+IpcHandler is an abstract class that contains all the logic needed for handling communication between [ipcRenderer](https://www.electronjs.org/docs/api/ipc-renderer) and [ipcMain](https://www.electronjs.org/docs/api/ipc-main) for a single [RequestChannel](#requestchannel-and-responsechannel) so you don't have to do it manually. The relevant bits of it's type signature is listed below.
+
+```
+abstract class IpcHandler<TRequest, TResponse> {
+  abstract channel: RequestChannel
+  
+  abstract makeResponse(request: IpcRequest<TRequest>): Promise<TResponse>
+}
+```
+
+To use the class simply extend from it and provide a channel to listen for requests on and a method which will listen for requests with a payload of type TRequest and return a response of type Promise<TResponse>
+
+**Example Usage**
+
+```
+class MyHandler extends IpcHandler<number, { id: number; name: string }> {
+  channel: RequestChannel = 'myChannel'
+
+  async makeResponse(request: IpcRequest<number>): Promise<{ id: number; name: string }> {
+    return  getDataFromSomeWhereFunc(request)
+  }
+} 
+```
 
 ## IpcController
 The IpcController abstract class can be extended in order to .
