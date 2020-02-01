@@ -28,7 +28,8 @@ electron-controllers was designed with typescript users in mind and exposes a ve
 ## IpcRequest
 
 IpcRequest represents a single request sent from [ipcRenderer](https://www.electronjs.org/docs/api/ipc-renderer) to [ipcMain](https://www.electronjs.org/docs/api/ipc-main). The full type signature is
-```interface IpcRequest<T = unknown> {
+```
+interface IpcRequest<T = unknown> {
   responseChannel?: ResponseChannel // a nominal type alias for a string.
   payload: T
 }
