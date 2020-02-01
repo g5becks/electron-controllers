@@ -25,6 +25,18 @@ $ yarn add electron-controllers
 
 electron-controllers was designed with typescript users in mind and exposes a very minimal api ( 7 types and two functions ).
 
+## RequestChannel and ResponseChannel
+
+RequestChannel and ResponseChannel are simple type aliases created using the [flavoring technique](https://spin.atomicobject.com/2018/01/15/typescript-flexible-nominal-typing/) for creating flexible nominal types.
+
+```
+// Represents a channel for ipcRenderer to send requests on.
+type RequestChannel = Flavor<string, 'IPC_REQUEST_CHANNEL'>
+
+// Represents a channel for ipcMain to send responses on.
+type ResponseChannel = Flavor<string, 'IPC_RESPONSE_CHANNEL'>
+```
+
 ## IpcRequest
 
 IpcRequest represents a single request sent from [ipcRenderer](https://www.electronjs.org/docs/api/ipc-renderer) to [ipcMain](https://www.electronjs.org/docs/api/ipc-main). The full type signature is
