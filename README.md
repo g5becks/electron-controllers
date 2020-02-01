@@ -68,7 +68,7 @@ abstract class IpcHandler<TRequest, TResponse> {
 }
 ```
 
-To use the class simply extend from it and provide a channel to listen for requests on and a method which will listen for requests with a payload of type TRequest and return a response of type Promise<TResponse>
+To use the class simply extend from it and provide a channel to listen for requests on and a method which will take requests with a payload of type TRequest and use it to return a response of type Promise<TResponse>.
 
 **Example Usage**
 
