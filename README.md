@@ -84,7 +84,7 @@ class MyHandler extends IpcHandler<number, { id: number; name: string }> {
 
 ## IpcAction
 
-IpcAction is nothing more than a type alias for a function that takes a request of some type and returns a Promise for a response of some type. It is used as a parameter to the createHandler method discussed later.
+IpcAction is nothing more than a type alias for a function that takes a request of type TRequest and returns a Promise<TResponse>. It's main use case is simplifying the creation of [IpcHandlers](#ipchandler) by removing the need to extract the payload from [IpcRequests](#ipcrequest) using the createHandler function which will be discussed later.
 
 ```
 type IpcAction<TRequest, TResponse> = (request: TRequest) => Promise<TResponse>
