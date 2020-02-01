@@ -77,9 +77,17 @@ class MyHandler extends IpcHandler<number, { id: number; name: string }> {
   channel: RequestChannel = 'myChannel'
 
   async makeResponse(request: IpcRequest<number>): Promise<{ id: number; name: string }> {
-    return  getDataFromSomeWhereFunc(request)
+    return  getDataFromSomeWhereFunc(request.payload)
   }
 } 
+```
+
+## IpcAction
+
+IpcAction is nothing more than a type alias for a function that takes a request of some type and returns a Promise for a response of some type. It is used as a parameter to the createHandler method discussed later.
+
+```
+type IpcAction<TRequest, TResponse> = (request: TRequest) => Promise<TResponse>
 ```
 
 ## IpcController

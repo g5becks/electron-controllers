@@ -6,7 +6,7 @@ import { IpcRequest, RequestChannel } from './ipc'
  * A function which handles a single request.
  *
  * */
-export type Action<TRequest, TResponse> = (request: TRequest) => Promise<TResponse>
+export type IpcAction<TRequest, TResponse> = (request: TRequest) => Promise<TResponse>
 
 /**
  * This function aims to simplify the creation of IpcHandler classes.
@@ -14,7 +14,7 @@ export type Action<TRequest, TResponse> = (request: TRequest) => Promise<TRespon
  * @param channel allows optional setting of the channel this handler will listen on.
  * */
 export const createHandler = <TRequest, TResponse>(
-  requestHandler: Action<TRequest, TResponse>,
+  requestHandler: IpcAction<TRequest, TResponse>,
   channel?: RequestChannel,
 ): IpcHandler<TRequest, TResponse> => {
   return new (class extends IpcHandler<TRequest, TResponse> {
