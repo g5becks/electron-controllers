@@ -23,7 +23,24 @@ $ yarn add electron-controllers
 
 ## 📖 Usage
 
-electron-controllers was designed with typescript users in mind and exposes a very minimal api ( 7 types and two functions ). The IpcController abstract class is likely to be the most used of these types in most applications.
+electron-controllers was designed with typescript users in mind and exposes a very minimal api ( 7 types and two functions ).
+
+## IpcRequest
+
+IpcRequest represents a single request sent from [ipcRenderer](https://www.electronjs.org/docs/api/ipc-renderer) to [ipcMain](https://www.electronjs.org/docs/api/ipc-main). The full type signature is
+`interface IpcRequest<T = unknown> {
+  responseChannel?: ResponseChannel // a nominal type alias for a string.
+  payload: T
+}`
+
+Where responseChannel is the channel that ipcMain will use to send a response to this request and payload is any data sent along with the request.
+
+```
+
+```
+
+## IpcController
+The IpcController abstract class can be extended in order to .
 ```
 import { IpcController, crudChannel } 'electron-controllers'
 
@@ -57,3 +74,4 @@ export class MyController extends IpcController {
   }
 }
 ```
+Please refer to the wiki for more information.
