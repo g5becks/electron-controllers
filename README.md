@@ -58,7 +58,7 @@ const request: IpcRequest<{ name: string }> = { responseChannel:
 
 ## IpcHandler
 
-IpcHandler is an abstract class that contains all the logic needed for handling communication between [ipcRenderer](https://www.electronjs.org/docs/api/ipc-renderer) and [ipcMain](https://www.electronjs.org/docs/api/ipc-main) for a single [RequestChannel](#requestchannel-and-responsechannel) so you don't have to do it manually. The relevant bits of it's type signature is listed below.
+IpcHandler is an abstract class that contains all the logic needed for handling communication between [ipcRenderer](https://www.electronjs.org/docs/api/ipc-renderer) and [ipcMain](https://www.electronjs.org/docs/api/ipc-main) for a single [RequestChannel](#requestchannel-and-responsechannel) so you don't have to do it manually. The relevant bits of it's type signature are listed below.
 
 ```
 abstract class IpcHandler<TRequest, TResponse> {
@@ -68,7 +68,7 @@ abstract class IpcHandler<TRequest, TResponse> {
 }
 ```
 
-To use the class simply extend from it and provide a channel to listen for requests on and a method which will take requests with a payload of type TRequest and use it to return a response of type Promise<TResponse>.
+To use the class simply extend from it and provide a channel to listen for requests on and a method which will take requests with a payload of type `TRequest` and use it to return a response of type `Promise<TResponse>`.
 
 **Example Usage**
 
