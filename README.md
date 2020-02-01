@@ -56,7 +56,7 @@ const request: IpcRequest<{ name: string }> = { responseChannel:
 
 ## IpcHandler
 
-IpcHandler is an abstract class that contains logic for handling communication between [ipcRenderer](https://www.electronjs.org/docs/api/ipc-renderer) and [ipcMain](https://www.electronjs.org/docs/api/ipc-main) for a single RequestChannel
+IpcHandler is an abstract class that contains logic for handling communication between [ipcRenderer](https://www.electronjs.org/docs/api/ipc-renderer) and [ipcMain](https://www.electronjs.org/docs/api/ipc-main) for a single [RequestChannel](#requestchannel-and-responsechannel)
 
 ## IpcController
 The IpcController abstract class can be extended in order to .
