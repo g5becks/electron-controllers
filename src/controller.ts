@@ -14,8 +14,8 @@ export type IpcAction<TRequest, TResponse> = (request: TRequest) => Promise<TRes
  * @param channel allows optional setting of the channel this handler will listen on.
  * */
 export const createHandler = <TRequest, TResponse>(
-  requestHandler: IpcAction<TRequest, TResponse>,
   channel: RequestChannel = '',
+  requestHandler: IpcAction<TRequest, TResponse>,
 ): IpcHandler<TRequest, TResponse> => {
   return new (class extends IpcHandler<TRequest, TResponse> {
     channel = channel
@@ -43,19 +43,19 @@ export abstract class IpcController {
   abstract remove(entities: any): Promise<any>
   abstract update(entities: any): Promise<any>
   private addHandler(): IpcHandler<any, any> {
-    return createHandler(this.add.bind(this), this.crudChannel.add())
+    return createHandler(this.crudChannel.add(), this.add.bind(this))
   }
   private listHandler(): IpcHandler<any, any> {
-    return createHandler(this.list.bind(this), this.crudChannel.list())
+    return createHandler(this.crudChannel.list(), this.list.bind(this))
   }
   private findByIdHandler(): IpcHandler<any, any> {
-    return createHandler(this.findById.bind(this), this.crudChannel.findById())
+    return createHandler(this.crudChannel.findById(), this.findById.bind(this))
   }
   private removeHandler(): IpcHandler<any, any> {
-    return createHandler(this.remove.bind(this), this.crudChannel.remove())
+    return createHandler(this.crudChannel.remove(), this.remove.bind(this))
   }
   private updateHandler(): IpcHandler<any, any> {
-    return createHandler(this.update.bind(this), this.crudChannel.update())
+    return createHandler(this.crudChannel.update(), this.update.bind(this))
   }
   public getHandlers(): Set<IpcHandler<any, any>> {
     return new Set([

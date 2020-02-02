@@ -168,8 +168,8 @@ In some cases, an entire controller is not needed and it would be overkill to us
 
 ```
 const createHandler = <TRequest, TResponse>(
-  requestHandler: IpcAction<TRequest, TResponse>,
   channel: RequestChannel = '',
+  requestHandler: IpcAction<TRequest, TResponse>,
 ): IpcHandler<TRequest, TResponse>
 ```
 
@@ -203,7 +203,7 @@ const registerHandlers = (controllers?: IpcController[], handlers?: IpcHandler<a
 ```
 const controllers = [new MyController1(), new MyController2, new MyController3()]
 
-const handlers = [createHandler(async (id: number) => await getDataFromDb(id)), new MyHandler() ]
+const handlers = [createHandler('someChannel', async (id: number) => await getDataFromDb(id)), new MyHandler() ]
 
 // somewhere inside main.ts
 registerHandlers(controllers, handlers)
