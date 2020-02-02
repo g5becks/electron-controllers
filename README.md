@@ -5,13 +5,13 @@
 ![build status](https://github.com/g5becks/electron-controllers/workflows/Node.js%20CI/badge.svg)
 [![Dependency Status](https://david-dm.org/g5becks/electron-controllers.svg)](https://david-dm.org/g5becks/electron-controllers)
 
-Simplified ipc architecture for electron applications using typescript.
+Simplified controller based ipc architecture for electron applications using typescript.
 
 ## ⤴️ Motivation
 
-- **Simplify.** Remove the need for managing channels manually, naming things is hard - so this package tries to do as much of that work for you as possible.<br>
+- **Simplify.** Remove the need for managing channels manually, naming things is hard - so this package tries to do as much of the work for you as possible.<br>
 
-- **Familiarity.** MVC is a well known pattern among developers which can help provide better structure to your application as it grows. This package provide the C - *controllers* part of the MVC pattern to your electron application.
+- **Familiarity.** MVC is a well known design pattern among developers which can help provide better structure to your application as it grows. This package provide the C - *controllers* part of the MVC pattern to your electron application.
 
 ## 💿 Installation
 
@@ -27,7 +27,7 @@ electron-controllers was designed with typescript users in mind and exposes a ve
 
 ## RequestChannel and ResponseChannel
 
-RequestChannel and ResponseChannel are simple type aliases created using the [flavoring technique](https://spin.atomicobject.com/2018/01/15/typescript-flexible-nominal-typing/) for creating flexible nominal types.
+RequestChannel and ResponseChannel are simple type aliases created using the [flavoring technique](https://spin.atomicobject.com/2018/01/15/typescript-flexible-nominal-typing/) for creating flexible nominal types. Using these aliases in your application instead of strings not only helps by adding extra type safety, but also as a form of documentation.
 
 ```
 // Represents a channel for ipcRenderer to send requests on.
@@ -42,7 +42,7 @@ type ResponseChannel = Flavor<string, 'IPC_RESPONSE_CHANNEL'>
 IpcRequest represents a single request sent from [ipcRenderer](https://www.electronjs.org/docs/api/ipc-renderer) to [ipcMain](https://www.electronjs.org/docs/api/ipc-main). The full type signature is
 ```
 interface IpcRequest<T = unknown> {
-  responseChannel?: ResponseChannel // a nominal type alias for a string.
+  responseChannel?: ResponseChannel
   payload: T
 }
 ```
@@ -68,7 +68,7 @@ abstract class IpcHandler<TRequest, TResponse> {
 }
 ```
 
-To use the class simply extend from it and provide a channel to listen for requests on and a method which will take requests with a payload of type `TRequest` and use it to return a response of type `Promise<TResponse>`.
+To use the class simply extend from it and provide a channel to listen for requests on and override the method `makeResponse` take requests with a payload of type `TRequest` and returns a response of type `Promise<TResponse>`.
 
 **Example Usage**
 
@@ -86,7 +86,7 @@ class MyHandler extends IpcHandler<number, { id: number; name: string }> {
 
 ## IpcAction
 
-IpcAction is nothing more than a type alias for a function that takes a request of type TRequest and returns a Promise<TResponse>. It's main use case is simplifying the creation of [IpcHandlers](#ipchandler) by removing the need to extract the payload from [IpcRequests](#ipcrequest) using the createHandler function which will be discussed later.
+IpcAction is nothing more than a type alias for a function that takes a request of type `TRequest` and returns a `Promise<TResponse>`. It's main use case is simplifying the creation of [IpcHandlers](#ipchandler) by removing the need to extract the payload from [IpcRequests](#ipcrequest) using the createHandler function which will be discussed later.
 
 ```
 type IpcAction<TRequest, TResponse> = (request: TRequest) => Promise<TResponse>
