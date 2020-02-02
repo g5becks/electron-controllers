@@ -180,7 +180,7 @@ import { createHandler, IpcAction, IpcRequest } from 'electron-controllers'
 
 const myAction: IpcAction<number, { id: number, name: string}> =  
  async ( id: number) => { 
-    const data = await getDataFrom somewhereUsingId(id)
+    const data = await getDataFromSomewhereUsingId(id)
     return data
 }
 
@@ -188,5 +188,16 @@ const myHandler = createHandler(myAction)
 const request: IpcRequest<number> = { responseChannel: 'someChannel', payload: 2389 }
 
 // makeResponse is rarely, if ever invoked explicitly as shown below in real applications.
+
 const response: { id: number, name: string} = await myHandler.makeResponse(request)
 ```
+
+## registerHandlers
+
+Once you have defined all of the [IpcHandlers](#ipchandler) and [IpcControllers](#ipccontroller) that your application will use, you need to let electron know how to use them in your application somehow, this is where the registerHandlers function comes into play. In the entry point of your electron application ( the main.js or main.ts file ) you call the registerHandlers function, passing in an optional list of all the [IpcControllers](#ipccontroller) that your application has defined and an optional list of all of the [IpcHandlers](#ipchandler), the registerHandlers function will take care of the rest. What is does under the hood is quite simple, it extracts all of the channels from your controllers and handlers, and then call [ipcMain.on](https://www.electronjs.org/docs/api/ipc-main#ipcmainonchannel-listener) for each channel, passing in a single method from [IpcHandler](#ipchandler) ( IpcHandler.handle() ) abstract class which takes care of sending a response to [ipcRenderer](https://www.electronjs.org/docs/api/ipc-renderer) on your behalf. The full type signature for the function is shown below.
+
+```
+const registerHandlers = (controllers?: IpcController[], handlers?: IpcHandler<any, any>[]): void
+```
+
+See the examples directory for a complete example using this function.
