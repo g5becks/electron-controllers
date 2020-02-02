@@ -94,12 +94,17 @@ type IpcAction<TRequest, TResponse> = (request: TRequest) => Promise<TResponse>
 
 ## CrudChannel
 
-CrudChannel is a class which handles routing for an IpcController instance by creating a set of routes (channels) that map to controller methods, it can also be used inside ipcRenderer for sending requests. Each instance of a CrudChannel contains 5 different channels that can be accessed using methods on the crud channel instance. To create an instance of a CrudChannel, either use the `static create(basePath?: RequestChannel): CrudChannel` method on the CrudChannel class or the exported crudChannel function which has the same signature. If provided, the optional basePath parameter will be used as the root part of the request channels created by the CrudChannel instance, which can be useful for logging amongst other things.
+CrudChannel is a class which handles routing for an IpcController instance by creating a set of routes (channels) that map to controller methods, it can also be used inside ipcRenderer for sending requests. Each instance of a CrudChannel contains 5 different channels that can be accessed using methods on the crud channel instance. To create an instance of CrudChannel, either use the `static create(basePath?: RequestChannel): CrudChannel` method on the CrudChannel class or the exported crudChannel function which has the same signature. If provided, the optional basePath parameter will be used as the root part of the request channels created by the CrudChannel instance, which can be useful for logging amongst other things.
 
 **Example usage.**
 ```
 import { CrudChannel, crudChannel } from 'electron-controllers'
-const channel: CrudChannel = crudChannel()
+const channel: CrudChannel = crudChannel() // using the crudChannel function without a basePath
+
+const channel2: CrudChannel = CrudChannel.create('myBasePath') // using the static create method with a basePath
+
+console.log(channel.basePath) // prints randomly created basePath
+console.log(channel2.basePath) // prints 'myBasePath'
 
 const addChannel = channel.add() // channel used for creating new entities
 const listChannel = channel.list() // channel used for listing entities
@@ -109,7 +114,20 @@ const findByIdChannel = channel.findById() // channel used for finding an entity
 ```
 
 ## IpcController
-The IpcController abstract class can be extended in order to .
+The IpcController abstract class is used to create controllers which map routes (channels) on the `crudChannel` member to crud operation methods on IpcController implementation instances. There are 5 abstract methods on the IpcController abstract class, when implemented these methods are used to handle incoming requests on each respective channel. The relevant bits of the type signature are listed below. Each method on an IpcController instance fits the signature of [IpcAction](#ipcaction) type, which is used behind the scenes by the IpcController class to create IpcHandler instances out of each method using the createHandler function.
+
+```
+abstract class IpcController {
+  abstract crudChannel: CrudChannel // a crudChannel instance used to map channels to methods.
+  abstract add(entities: any): Promise<any> // handles request made to the crudChannel.add() route
+  abstract list(filter: any): Promise<any> // handles request made to the crudChannel.list() route
+  abstract findById(id: any): Promise<any> // handles request made to the crudChannel.findById() route
+  abstract remove(entities: any): Promise<any> // handles request made to the crudChannel.remove route
+  abstract update(entities: any): Promise<any> // handles request made to the crudChannel.update() route
+}
+```
+
+**Example Usage**
 ```
 import { IpcController, crudChannel } 'electron-controllers'
 
@@ -143,4 +161,6 @@ export class MyController extends IpcController {
   }
 }
 ```
-Please refer to the wiki for more information.
+
+
+
