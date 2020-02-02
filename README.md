@@ -94,7 +94,7 @@ type IpcAction<TRequest, TResponse> = (request: TRequest) => Promise<TResponse>
 
 ## CrudChannel
 
-CrudChannel is a class which handles routing for an IpcController instance by creating a set of routes (channels) that map to controller methods, it can also be used inside ipcRenderer for sending requests. Each instance of a CrudChannel contains 5 different channels that can be accessed using methods on the crud channel instance. To create an instance of CrudChannel, either use the `static create(basePath?: RequestChannel): CrudChannel` method on the CrudChannel class or the exported crudChannel function which has the same signature. If provided, the optional basePath parameter will be used as the root part of the request channels created by the CrudChannel instance, which can be useful for logging amongst other things.
+The CrudChannel class handles routing for a [IpcController](#ipccontroller) instances by creating a set of routes (channels) that map to controller methods, it can also be used inside ipcRenderer for sending requests. Each instance of a CrudChannel contains 5 different channels that can be accessed using methods on the crud channel instance. To create an instance of CrudChannel, either use the `static create(basePath?: RequestChannel): CrudChannel` method on the CrudChannel class or the exported `crudChannel` function which has the same signature. If provided, the optional `basePath?: RequestChannel` parameter will be used as the root part of the request channels created by the CrudChannel instance, which can be useful for logging amongst other things, if not provided it will be created for using a short random string.
 
 **Example usage.**
 ```
@@ -114,7 +114,7 @@ const findByIdChannel = channel.findById() // channel used for finding an entity
 ```
 
 ## IpcController
-The IpcController abstract class is used to create controllers which map routes (channels) on the `crudChannel` member to crud operation methods on IpcController implementation instances. There are 5 abstract methods on the IpcController abstract class, when implemented these methods are used to handle incoming requests on each respective channel. The relevant bits of the type signature are listed below. Each method on an IpcController instance fits the signature of [IpcAction](#ipcaction) type, which is used behind the scenes by the IpcController class to create IpcHandler instances out of each method using the createHandler function.
+The IpcController abstract class is used to create controllers which map routes (channels) on the `crudChannel` member to methods on IpcController implementation instances. There are 5 abstract methods on the IpcController abstract class, when implemented these methods are used to handle incoming requests on the crudChannel instance's routes with matching name, E.G. `crudChannel.add()` route will be handled by the `controller.add()` method and so on. The relevant bits of the type signature are listed below. Each method on an IpcController instance fits the signature of [IpcAction](#ipcaction) type, which is used behind the scenes by the IpcController class to create [IpcHandler](#ipchandler) instances out of each method using the createHandler function.
 
 ```
 abstract class IpcController {
