@@ -73,6 +73,8 @@ To use the class simply extend from it and provide a channel to listen for reque
 **Example Usage**
 
 ```
+import { IpcHandler, RequestChannel } from 'electron-controllers'
+
 class MyHandler extends IpcHandler<number, { id: number; name: string }> {
   channel: RequestChannel = 'myChannel'
 
@@ -88,6 +90,22 @@ IpcAction is nothing more than a type alias for a function that takes a request 
 
 ```
 type IpcAction<TRequest, TResponse> = (request: TRequest) => Promise<TResponse>
+```
+
+## CrudChannel
+
+CrudChannel is a class which handles routing for an IpcController instance by creating a set of routes (channels) that map to controller methods, it can also be used inside ipcRenderer for sending requests. Each instance of a CrudChannel contains 5 different channels that can be accessed using methods on the crud channel instance. To create an instance of a CrudChannel, either use the `static create(basePath?: RequestChannel): CrudChannel` method on the CrudChannel class or the exported crudChannel function which has the same signature. If provided, the optional basePath parameter will be used as the root part of the request channels created by the CrudChannel instance, which can be useful for logging amongst other things.
+
+**Example usage.**
+```
+import { CrudChannel, crudChannel } from 'electron-controllers'
+const channel: CrudChannel = crudChannel()
+
+const addChannel = channel.add() // channel used for creating new entities
+const listChannel = channel.list() // channel used for listing entities
+const updateChannel = channel.update() // channel used for updating entities
+const removeChannel = channel.remove() // channel used for deleting entities
+const findByIdChannel = channel.findById() // channel used for finding an entity by id.
 ```
 
 ## IpcController
