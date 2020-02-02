@@ -179,7 +179,8 @@ const createHandler = <TRequest, TResponse>(
 import { createHandler, IpcAction, IpcRequest } from 'electron-controllers'
 
 const myAction: IpcAction<number, { id: number, name: string}> =  
- async ( id: number) => { const data = await getDataFrom somewhereUsingId(id)
+ async ( id: number) => { 
+    const data = await getDataFrom somewhereUsingId(id)
     return data
 }
 
