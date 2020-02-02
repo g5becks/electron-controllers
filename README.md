@@ -169,7 +169,7 @@ In some cases, an entire controller is not needed and it would be overkill to us
 ```
 const createHandler = <TRequest, TResponse>(
   channel: RequestChannel = '',
-  requestHandler: IpcAction<TRequest, TResponse>,
+  action: IpcAction<TRequest, TResponse>,
 ): IpcHandler<TRequest, TResponse>
 ```
 
