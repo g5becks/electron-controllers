@@ -200,4 +200,20 @@ Once you have defined all of the [IpcHandlers](#ipchandler) and [IpcControllers]
 const registerHandlers = (controllers?: IpcController[], handlers?: IpcHandler<any, any>[]): void
 ```
 
-See the examples directory for a complete example using this function.
+```
+const controllers = [new MyController1(), new MyController2, new MyController3()]
+
+const handlers = [createHandler(async (id: number) => await getDataFromDb(id)), new MyHandler() ]
+
+// somewhere inside main.ts
+registerHandlers(controllers, handlers)
+
+```
+
+## Contributing
+
+All contributions are welcome and greatly appreciated. :thumbsup:
+
+## Bug Reports or Feature Requests
+
+Please use GitHub Issues.
