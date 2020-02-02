@@ -122,7 +122,7 @@ abstract class IpcController {
   abstract add(entities: any): Promise<any> // handles request made to the crudChannel.add() route
   abstract list(filter: any): Promise<any> // handles request made to the crudChannel.list() route
   abstract findById(id: any): Promise<any> // handles request made to the crudChannel.findById() route
-  abstract remove(entities: any): Promise<any> // handles request made to the crudChannel.remove route
+  abstract remove(entities: any): Promise<any> // handles request made to the crudChannel.remove() route
   abstract update(entities: any): Promise<any> // handles request made to the crudChannel.update() route
 }
 ```
@@ -162,5 +162,29 @@ export class MyController extends IpcController {
 }
 ```
 
+## createHandler
 
+In some cases, an entire controller is not needed and it would be overkill to use one to handle requests being made on a single channel. In these cases you could of course create an instance of an [IpcHandler](#ipchandler), but an argument could be made that it's still a tad bit tedious to have to create a class and extend from another class just to implement a single method in order to handle incoming requests on a single channel. It's these types of use cases that the createHandler function was created for. createHandler takes a [RequestChannel](#requestchannel-and-responsechannel) and an [IpcAction](#ipcaction) function as parameters and returns an instance of [IpcHandler](#ipchandler), the full type signature is listed below.
 
+```
+const createHandler = <TRequest, TResponse>(
+  requestHandler: IpcAction<TRequest, TResponse>,
+  channel: RequestChannel = '',
+): IpcHandler<TRequest, TResponse>
+```
+
+**Example Usage**
+
+```
+import { createHandler, IpcAction, IpcRequest } from 'electron-controllers'
+
+const myAction: IpcAction<number, { id: number, name: string}> = async ( id: number) => { const data = await getDataFrom somewhereUsingId(id)
+    return data
+}
+
+const myHandler = createHandler(myAction)
+const request: IpcRequest<number> = { responseChannel: 'someChannel', payload: 2389 }
+
+// makeResponse is rarely, if ever invoked explicitly as shown below in real applications.
+const response: { id: number, name: string} = await myHandler.makeResponse(request)
+```

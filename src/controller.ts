@@ -15,10 +15,10 @@ export type IpcAction<TRequest, TResponse> = (request: TRequest) => Promise<TRes
  * */
 export const createHandler = <TRequest, TResponse>(
   requestHandler: IpcAction<TRequest, TResponse>,
-  channel?: RequestChannel,
+  channel: RequestChannel = '',
 ): IpcHandler<TRequest, TResponse> => {
   return new (class extends IpcHandler<TRequest, TResponse> {
-    channel = channel ?? ''
+    channel = channel
 
     makeResponse(request: IpcRequest<TRequest>): Promise<TResponse> {
       return requestHandler(request.payload)
