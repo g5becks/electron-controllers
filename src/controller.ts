@@ -70,6 +70,13 @@ export abstract class IpcController {
   }
 }
 
+/**
+ * A utility method that creates an IpcController using a partial implementation of the CrudHandler interface.
+ *
+ * @param crudHandler is a partial or full implementation of the CrudHandler interface.
+ * @param basePath is the base path to be used for the CrudChannel.
+ * @returns IpcController.
+ * */
 export const createController = (crudHandler: Partial<CrudHandler>, basePath?: string): IpcController => {
   return new (class extends IpcController {
     crudChannel: CrudChannel = basePath ? crudChannel(basePath) : crudChannel()
