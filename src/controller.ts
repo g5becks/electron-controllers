@@ -1,6 +1,8 @@
 import { IpcHandler } from './handler'
-import { CrudChannel } from './crud-channel'
+import { crudChannel, CrudChannel } from './crud-channel'
 import { IpcRequest, RequestChannel } from './ipc'
+import { CrudHandler } from './crud-handler'
+
 /**
  * @remarks
  * A function which handles a single request.
@@ -66,4 +68,31 @@ export abstract class IpcController {
       this.removeHandler(),
     ])
   }
+}
+
+export const createController = (crudHandler: Partial<CrudHandler>): IpcController => {
+  return new (class extends IpcController {
+    crudChannel: CrudChannel = crudChannel()
+    notImplemented = 'no request handler method implemented for request path'
+
+    async add(entities: any): Promise<any> {
+      return crudHandler && crudHandler.addHandler ? crudHandler.addHandler(entities) : this.notImplemented
+    }
+
+    async findById(id: any): Promise<any> {
+      return crudHandler && crudHandler.findByIdHandler ? crudHandler.findByIdHandler(id) : this.notImplemented
+    }
+
+    async list(filter: any): Promise<any> {
+      return crudHandler && crudHandler.listHandler ? crudHandler.listHandler(filter) : this.notImplemented
+    }
+
+    async remove(entities: any): Promise<any> {
+      return crudHandler && crudHandler.removeHandler ? crudHandler.removeHandler(entities) : this.notImplemented
+    }
+
+    async update(entities: any): Promise<any> {
+      return crudHandler && crudHandler.updateHandler ? crudHandler.updateHandler(entities) : this.notImplemented
+    }
+  })()
 }
