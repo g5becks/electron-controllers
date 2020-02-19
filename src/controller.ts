@@ -70,9 +70,9 @@ export abstract class IpcController {
   }
 }
 
-export const createController = (crudHandler: Partial<CrudHandler>): IpcController => {
+export const createController = (crudHandler: Partial<CrudHandler>, basePath?: string): IpcController => {
   return new (class extends IpcController {
-    crudChannel: CrudChannel = crudChannel()
+    crudChannel: CrudChannel = basePath ? crudChannel(basePath) : crudChannel()
     notImplemented = 'no request handler method implemented for request path'
 
     async add(entities: any): Promise<any> {
