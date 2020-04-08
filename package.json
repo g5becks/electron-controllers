@@ -7,11 +7,11 @@
   "scripts": {
     "test": "jest",
     "build": "tsc",
-    "prepare" : "npm run build",
-    "prepublishOnly" : "npm test && npm run lint",
-    "preversion" : "npm run lint",
-    "version" : "npm run lint:fix && git add -A src",
-    "postversion" : "git push && git push --tags",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run lint:fix && git add -A src",
+    "postversion": "git push && git push --tags",
     "clean": "tsc -b --clean",
     "lint": "eslint \"src/**/*.ts\"",
     "lint:fix": "eslint --fix \"src/**/*.ts\""
@@ -40,7 +40,7 @@
     "@types/jest": "^24.9.1",
     "@types/rewire": "^2.5.28",
     "@types/shortid": "0.0.29",
-    "@typescript-eslint/geslint-plugin": "^2.17.0",
+    "@typescript-eslint/eslint-plugin": "^2.17.0",
     "@typescript-eslint/parser": "^2.17.0",
     "electron": "^7.1.10",
     "eslint": "^6.8.0",
@@ -51,5 +51,7 @@
     "ts-jest": "^25.0.0",
     "typescript": "^3.7.5"
   },
-  "files": ["dist/**/*"]
+  "files": [
+    "dist/**/*"
+  ]
 }
