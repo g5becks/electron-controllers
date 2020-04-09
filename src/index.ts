@@ -3,8 +3,10 @@ import { CrudChannel } from './crud-channel'
 import { IpcHandler } from './handler'
 import { registerHandlers } from './handler-registrar'
 import { IpcRequest, RequestChannel, ResponseChannel } from './ipc'
+import { CrudHandler } from './crud-handler'
 
 export {
+  CrudHandler,
   IpcAction,
   createHandler,
   createController,
